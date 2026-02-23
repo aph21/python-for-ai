@@ -1,6 +1,6 @@
 # Learning Journal
 
-## Day 1 - 2026-02-11
+## Day 1 - 2026-02-23
 - Set up the repo and virtual environment
 - Wrote first `print()` statements
 - Learned about **variables** — named references to values in memory
