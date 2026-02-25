@@ -20,3 +20,13 @@
 - **Falsy values** — `0`, `""`, `[]`, `None` → `False`; everything else → `True`
 - **`bool` is a subclass of `int`** — `True + 1 = 2`; `bool("False")` is `True` (non-empty string)
 - **First functions** using `def`
+
+## Day 3 - 2026-02-25
+- **`None`** — a singleton representing the absence of a value (`NoneType`); not the same as `False` or `0`
+- **`None` in production** — critical in API responses (missing fields) and optional parameters in LLM/backend systems
+- **`None == False` is `False`** — None means "no value", False means falsehood; they are distinct concepts
+- **`is` vs `==`** — `is` checks identity (same object in memory); `==` checks value equality
+- **Integer interning** — Python caches integers −5 to 256; `a is b` is `True` for cached range, unreliable outside it
+- **String interning** — Python interns short strings and identifiers; unreliable for longer or dynamic strings
+- **When to use `is`** — only for `None`, `True`/`False`, or intentional identity checks
+- **Never use `is` for numeric/string comparison** — interning behavior is implementation-dependent; always use `==` for values
