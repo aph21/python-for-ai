@@ -89,3 +89,41 @@ print(
 print(
     x is False
 )  # it gives false  beacuse x points to None and False is boolean object so they are completely differet in memory and thus x is False returns False. The is operator checks for identity, meaning it checks if both operands refer to the same object in memory. Since None and False are different objects, x is False evaluates to False.
+
+
+a = 256
+b = 256
+print(a is b) # True
+# Because python interns small integers ( from -5 to 256 -> these are cached and resued by python internally)
+# so when we write 256 so it doesn't create new object each time and it reuses the same cached object.
+#same object -> identity is True
+
+a = 257
+b = 257
+print(a is b)# Sometimes it prints true and sometimes false based on implementation and context
+#because integers outside the range of -5 to 256 are not interned by Python, so when we create two variables a and b with the value 257, they may refer to different objects in memory. Therefore, a is b may return False because they are not the same object, even though they have the same value. However, in some implementations of Python or under certain conditions, it is possible that small integers outside the range are also interned, which could lead to a is b returning True. This behavior can be implementation-dependent and should not be relied upon.# so professional NEVER use is operator for Numeric comparision. So correct way is to use == for value comparison and is for identity comparison.
+
+### Use is only for
+#NONE
+#True/ False
+#checking identity intentionally
+####NEVER use is for STRing, int, float, bool comparision because of the interning and caching behavior of Python which can lead to unexpected results when using is for value comparison. Always use == for comparing values of these types to ensure correct behavior.
+
+x = "hello"
+y = "hello"
+
+print(x is y) # True, in CPython it will mostly print true.
+#why? because python often interns small strings, especially shrt strings, identifiers and string literals inside same code block.
+#both x and y are same object in memeory.
+x = "hello world"
+y = "hello world"
+
+print(x is y)
+# it may print True or false based on implementation and context because longer strings are not always interned by Python, so x and y may refer to different objects in memory. Therefore, x is y may return False because they are not the same object, even though they have the same value. However, in some implementations of Python or under certain conditions, it is possible that longer strings are also interned, which could lead to x is y returning True. This behavior can be implementation-dependent and should not be relied upon. Always use == for comparing string values to ensure correct behavior.
+
+###Using is for string comparison is a professional mistake.
+
+#best 3 use case of using is in production Python:
+# 1. checking for None
+# 2. checking for True/False
+# 3. checking for identity intentionally
