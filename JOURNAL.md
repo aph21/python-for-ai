@@ -30,3 +30,9 @@
 - **String interning** — Python interns short strings and identifiers; unreliable for longer or dynamic strings
 - **When to use `is`** — only for `None`, `True`/`False`, or intentional identity checks
 - **Never use `is` for numeric/string comparison** — interning behavior is implementation-dependent; always use `==` for values
+- **Reassignment vs Mutation** — `a = [4,5,6]` rebinds `a` to a new list (old reference `b` is unaffected); `a.append(4)` mutates the shared object (both `a` and `b` see the change)
+- **List (mutable sequence)** — supports `append`, `insert`, `remove`; designed for dynamic resizing with extra space pre-allocated
+- **Tuple (immutable sequence)** — no mutation methods; fixed size, more memory-efficient, and faster than lists
+- **Why tuples matter in Backend/AI systems** — immutable config = safety; hashable so usable as dictionary keys (lists are not); functions return multiple values as tuples; better performance for large datasets
+- **Shallow immutability** — a tuple's structure is immutable, but mutable objects inside it (e.g. a list) can still be modified: `(1, 2, [3, 4])` → appending to the inner list works, but reassigning the slot (`t[2] = ...`) raises `TypeError`
+- **Tuple identity & interning** — CPython may intern small tuple literals in the same code block, so `a is b` might be `True`; never rely on this — always use `==` for value comparison
