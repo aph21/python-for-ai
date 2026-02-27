@@ -36,3 +36,11 @@
 - **Why tuples matter in Backend/AI systems** — immutable config = safety; hashable so usable as dictionary keys (lists are not); functions return multiple values as tuples; better performance for large datasets
 - **Shallow immutability** — a tuple's structure is immutable, but mutable objects inside it (e.g. a list) can still be modified: `(1, 2, [3, 4])` → appending to the inner list works, but reassigning the slot (`t[2] = ...`) raises `TypeError`
 - **Tuple identity & interning** — CPython may intern small tuple literals in the same code block, so `a is b` might be `True`; never rely on this — always use `==` for value comparison
+
+## Day 4 - 2026-02-27
+- **Hashing** — a hash is a number Python makes from an object to store and find it fast
+- **Hashable** — an object is hashable if its hash never changes; simple test: can it be a dict key?
+- **Mutability breaks hashing** — if a key changes, its hash changes, and the dict can't find it anymore
+- **Lists can't be keys** — `{[1,2]: "val"}` raises `TypeError` because lists are mutable
+- **Tuples can be keys** — they're immutable so the hash stays the same
+- **Tuple caveat** — a tuple is hashable only if everything inside it is too; `(1, 2, [3])` crashes
