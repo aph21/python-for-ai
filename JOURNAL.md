@@ -44,3 +44,15 @@
 - **Lists can't be keys** — `{[1,2]: "val"}` raises `TypeError` because lists are mutable
 - **Tuples can be keys** — they're immutable so the hash stays the same
 - **Tuple caveat** — a tuple is hashable only if everything inside it is too; `(1, 2, [3])` crashes
+
+## Day 5 - 2026-03-04
+- **Sets** — a collection of unique elements; unordered and mutable; uses hashing internally for storage
+- **Creating sets** — `set()` for empty set (not `{}`), `{1, 2, 3}` with literals, or `set([1, 2, 3])` from a list
+- **No duplicates** — `{1, 1, 2, 6, 6}` becomes `{1, 2, 6}`; duplicates are silently ignored on add
+- **Unordered** — elements have no guaranteed order; sets optimize for fast lookup, not sequence
+- **Only hashable elements** — ints, strings, tuples work; lists inside a set raise `TypeError`
+- **`add()` and `remove()`** — `add()` inserts an element (no-op if duplicate); `remove()` deletes or raises `KeyError` if missing
+- **Membership check (`in`)** — `2 in s` is O(1) on average because sets use hash-table lookup, not linear scan
+- **Tuples in sets** — `(1, 2)` is hashable so it can be added; `(1, 2, [3])` is not because the inner list is unhashable
+- **Duplicate detection via hashing** — adding `(1, 2)` twice keeps `len(s)` at 1; Python compares hash first, then checks equality
+- **`True` vs `1` in sets** — `bool` is a subclass of `int`; `True == 1` so `{1, 2, 3}.add(True)` changes nothing — `True` is already "present" as `1`
