@@ -56,3 +56,14 @@
 - **Tuples in sets** — `(1, 2)` is hashable so it can be added; `(1, 2, [3])` is not because the inner list is unhashable
 - **Duplicate detection via hashing** — adding `(1, 2)` twice keeps `len(s)` at 1; Python compares hash first, then checks equality
 - **`True` vs `1` in sets** — `bool` is a subclass of `int`; `True == 1` so `{1, 2, 3}.add(True)` changes nothing — `True` is already "present" as `1`
+
+## Day 6 - 2026-03-05
+- **Dictionaries** — a data structure that stores key-value pairs; also known as associative arrays or hash maps
+- **Dict properties** — keys must be hashable, values can be anything, keys are unique, dicts are mutable, and lookups are fast
+- **`True` and `1` are the same key** — `d[1] = "integer"` then `d[True] = "boolean"` results in `{1: 'boolean'}` because `True == 1` and they share the same hash
+- **`False` and `0` are the same key** — `d[False] = "A"` then `d[0] = "B"` results in `{False: 'B'}` — the original key name is kept but the value is overwritten
+- **Lists can't be dict keys** — `d[[1,2]] = "list"` raises `TypeError: unhashable type: 'list'`; tuples work fine as keys
+- **Hashable types for dict keys** — `int`, `float`, `str`, `bool`, `tuple` (if contents hashable) can be keys; `list`, `set`, `dict` cannot
+- **Control flow — falsy values** — `if 0:` skips to else because `0` is falsy
+- **Empty list is falsy but equals `[]`** — `if x:` is `False` for `x = []`, but `x == []` is `True`; `elif` catches it
+- **`None` is falsy and `== None` is `True`** — `if x:` fails for `None`, then `x == None` matches before `x is None` gets a chance; first matching branch wins, rest are skipped
