@@ -58,12 +58,15 @@
 - **`True` vs `1` in sets** — `bool` is a subclass of `int`; `True == 1` so `{1, 2, 3}.add(True)` changes nothing — `True` is already "present" as `1`
 
 ## Day 6 - 2026-03-05
-- **Dictionaries** — a data structure that stores key-value pairs; also known as associative arrays or hash maps
-- **Dict properties** — keys must be hashable, values can be anything, keys are unique, dicts are mutable, and lookups are fast
-- **`True` and `1` are the same key** — `d[1] = "integer"` then `d[True] = "boolean"` results in `{1: 'boolean'}` because `True == 1` and they share the same hash
-- **`False` and `0` are the same key** — `d[False] = "A"` then `d[0] = "B"` results in `{False: 'B'}` — the original key name is kept but the value is overwritten
-- **Lists can't be dict keys** — `d[[1,2]] = "list"` raises `TypeError: unhashable type: 'list'`; tuples work fine as keys
-- **Hashable types for dict keys** — `int`, `float`, `str`, `bool`, `tuple` (if contents hashable) can be keys; `list`, `set`, `dict` cannot
-- **Control flow — falsy values** — `if 0:` skips to else because `0` is falsy
-- **Empty list is falsy but equals `[]`** — `if x:` is `False` for `x = []`, but `x == []` is `True`; `elif` catches it
-- **`None` is falsy and `== None` is `True`** — `if x:` fails for `None`, then `x == None` matches before `x is None` gets a chance; first matching branch wins, rest are skipped
+- Learnt what a **dictionary** is — stores key-value pairs, like a hash map
+- Created my first dict: `{"name": "Anjana", "age": 24, "role": "AI Engineer"}`
+- Dict keys must be **hashable** and **unique**; values can be anything
+- Dicts are **mutable** and give **fast lookups**
+- Discovered that `True` and `1` collide as dict keys — `d[1]` and `d[True]` point to the same slot because `True == 1` and `hash(True) == hash(1)`
+- Same thing with `False` and `0` — the first key name sticks, but the value gets overwritten
+- Lists can't be dict keys (`TypeError: unhashable type: 'list'`), but tuples can
+- Reviewed the hashability table — `int`, `float`, `str`, `bool`, `tuple` are hashable; `list`, `set`, `dict` are not
+- Started **control flow** (`if` / `elif` / `else`)
+- `0` is falsy, so `if 0:` goes straight to `else`
+- An empty list `[]` is falsy too, but `x == []` is `True` — the `elif` catches it
+- `None` is falsy; `x == None` matches before `x is None` even gets checked — first matching branch wins
