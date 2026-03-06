@@ -70,3 +70,12 @@
 - `0` is falsy, so `if 0:` goes straight to `else`
 - An empty list `[]` is falsy too, but `x == []` is `True` — the `elif` catches it
 - `None` is falsy; `x == None` matches before `x is None` even gets checked — first matching branch wins
+
+## Day 7 - 2026-03-06
+- **Filtering falsy values** — looping with `if v:` naturally skips `0`, `""`, and `None`; useful for cleaning lists
+- **`range()` function** — generates a sequence of numbers; returns a lazy range object, not a list
+- `range(stop)` — numbers from `0` to `stop-1`; e.g. `range(5)` → `0, 1, 2, 3, 4`
+- `range(start, stop)` — numbers from `start` to `stop-1`; e.g. `range(2, 5)` → `2, 3, 4`
+- `range(start, stop, step)` — numbers with a custom step; e.g. `range(0, 10, 2)` → `0, 2, 4, 6, 8`
+- **`range()` in for loops** — the most common pattern to repeat something N times: `for i in range(5):`
+- Wrap `range()` in `list()` to see all values at once — `list(range(5))` → `[0, 1, 2, 3, 4]`
