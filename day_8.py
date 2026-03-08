@@ -47,3 +47,36 @@ for i in range(1,4):
 for row in range(3):
     for col in range(3):
         print("cell:" ,row, col)
+
+
+###Break used in nested loop
+#1
+for i in range(3):
+    for j in range(3):
+        if j == 1:
+            break
+        print(i, j)
+
+#output is:
+#0 0    
+#1 0
+#2 0
+# Why ? -> because break stops only inner loop, not the outer loop. So when j is 1, the inner loop breaks and moves to the next iteration of the outer loop. Therefore, only the pairs (0, 0), (1, 0), and (2, 0) are printed before the inner loop breaks each time j reaches 1.
+
+
+#Does the inner loop run completely every time the outer loop iterates? - Inner loop runs fully for each outer iteration
+# UNLESS something interrupts it (break/return/exception)
+
+
+#2
+for i in range(2):
+    for j in range(3):
+        print(i,j)
+#output is:
+#0 0
+#0 1
+#0 2
+#1 0
+#1 1
+#1 2
+#how many total prints happen? - there are total of 6 prints. Outer loop iterates 2 times and inner loop iterates 3 times for each iteration of the outer loop. So total prints = 2 (outer loop) * 3 (inner loop) = 6 prints.
