@@ -80,3 +80,27 @@ for i in range(2):
 #1 1
 #1 2
 #how many total prints happen? - there are total of 6 prints. Outer loop iterates 2 times and inner loop iterates 3 times for each iteration of the outer loop. So total prints = 2 (outer loop) * 3 (inner loop) = 6 prints.
+
+for i in range(2):
+    for j in range(3):
+        if j == 1:
+            break
+        print(i, j)
+#output is:
+#0 0            
+#1 0
+#how many total prints happen? - there are total of 2 prints. Outer loop iterates 2 times and inner loop iterates 3 times for each iteration of the outer loop. But when j is 1, the inner loop breaks and moves to the next iteration of the outer loop. So only when j is 0, the print statement is executed. Therefore, total prints = 2 (outer loop) * 1 (inner loop before break) = 2 prints.
+
+for i in range(3):
+    for j in range(3):
+        if i == j:
+            continue
+        print(i, j)
+#output is:
+#0 1    
+#0 2
+#1 0
+#1 2
+#2 0
+#2 1
+#how many total prints happen? - there are total of 6 prints. Outer loop iterates 3 times and inner loop iterates 3 times for each iteration of the outer loop. But when i is equal to j, the continue statement is executed, which skips the rest of the code in that iteration and moves to next iteration. So only when i is not equal to j, the print statement is executed. Therefore, total prints = 3 (outer loop) * 3 (inner loop) - 3 (when i == j) = 6 prints.
