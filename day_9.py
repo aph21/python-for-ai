@@ -130,7 +130,7 @@ def my_fnc():
     print(message)
 
 my_fnc()
-print(message) #NameError: name 'message' is not defined -> why? because message is a local variable, it only exists inside the function, and it is not accessible outside the function. when you try to print message outside the function, it raises a NameError because message is not defined in that scope. this is called variable scope, and it is an important concept to understand when working with functions in Python.
+#print(message) #NameError: name 'message' is not defined -> why? because message is a local variable, it only exists inside the function, and it is not accessible outside the function. when you try to print message outside the function, it raises a NameError because message is not defined in that scope. this is called variable scope, and it is an important concept to understand when working with functions in Python.
 
 
 #2
@@ -209,3 +209,4 @@ def update_list(item, my_list=None):
         my_list = []
     my_list.append(item)
     return my_list  
+
