@@ -79,3 +79,29 @@
 - `range(start, stop, step)` — numbers with a custom step; e.g. `range(0, 10, 2)` → `0, 2, 4, 6, 8`
 - **`range()` in for loops** — the most common pattern to repeat something N times: `for i in range(5):`
 - Wrap `range()` in `list()` to see all values at once — `list(range(5))` → `[0, 1, 2, 3, 4]`
+
+## Day 8 - 2026-03-06
+- **`range()` returns a range object, not a list** — use `list(range(2,6))` to see `[2, 3, 4, 5]`; stop value is exclusive
+- **`break` vs `continue`** — `break` exits the loop permanently; `continue` skips the current iteration and moves to the next
+- **`break`** is for stopping early (task done); **`continue`** is for skipping bad data
+- Combined example — `continue` at `i==2` skips printing 2; `break` at `i==4` stops the loop; output: `0, 1, 3`
+- **Nested loops** — a loop inside another loop; outer loop controls rows, inner loop runs completely for each outer iteration
+- **Multiplication table** with nested `range(1,4)` — prints a 3x3 grid of products
+- **Grid traversal** — nested loops over rows and columns; used in 2D arrays, pathfinding, image processing
+- **`break` in nested loops** — `break` only stops the **inner** loop, not the outer one
+- Inner loop runs fully for each outer iteration **unless** interrupted by `break`, `return`, or an exception
+- **Total prints calculation** — outer iterations × inner iterations (minus skips/breaks) gives the count
+
+## Day 9 - 2026-03-07
+- **Functions** — named, reusable blocks of code that take input, do something, and optionally return output
+- **First-class objects** — functions in Python are values; can be stored in lists, assigned to variables, passed as arguments, and returned from other functions
+- **Parameters** — variables that only exist inside the function; arguments get assigned to them on call
+- **Multiple parameters** — order matters; `intro("Anjana", 25)` vs `intro(25, "Anjana")` gives different results
+- **`return` vs `print`** — `print` shows output on screen and it's gone; `return` sends the value back to the caller so it can be stored and reused
+- **In AI pipelines, always use `return`** — output of one function feeds into the next; `print` returns `None`
+- **Mutable default arguments trap** — `def f(item, cart=[])` shares the same list across calls; fix by using `None` as default and creating a new list inside
+- **Default parameter values** — provide fallback values; must come after non-default params; e.g. `def greet(name, language="English")`
+- **Type hints** — `: int`, `: float`, `-> float` annotate expected types; not enforced at runtime but help readability, IDEs, and static checkers like mypy
+- **Returning multiple values** — `return name, age, role` packs into a tuple; unpack with `name, age, role = get_info()`
+- **Variable scope** — local variables exist only inside their function; global variables are accessible but modifying them inside a function needs the `global` keyword
+- **Avoid global variables** in professional/AI code — pass values in, return values out
