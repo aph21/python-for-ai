@@ -12,8 +12,11 @@ def outer():
     def inner():
         print(msg)
 
-    return inner
+    return inner  # returning function but not calling it
 
 
-my_fnc = outer()
-my_fnc()
+my_fnc = outer() #outer finishes execution here but inner is still alive and has access to msg variable
+my_fnc() # but inner still has access to msg variable and can print it
+
+
+#This is the key moment. outer() has finished. message should be gone. But inner closed over message and kept it alive in memory. That is why it is called a closure.
