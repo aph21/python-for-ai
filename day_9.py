@@ -210,3 +210,14 @@ def update_list(item, my_list=None):
     my_list.append(item)
     return my_list  
 
+
+
+#5
+def calculate(a: int, b: int) -> int:
+    return a + b
+
+result = calculate("10", "20")
+print(result)
+
+#output is: 1020
+#why? because "10" and "20" are strings, so when you add them together, it concatenates them instead of performing arithmetic addition. the type hints in the function definition are not enforced by the python interpreter, they are just for documentation purposes and for static type checkers. so when you call calculate("10", "20"), it does not raise an error, it just returns the concatenated string "1020". to fix this, you need to either change the input to integers or modify the function to handle string inputs appropriately.
