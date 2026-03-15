@@ -221,3 +221,32 @@ print(result)
 
 #output is: 1020
 #why? because "10" and "20" are strings, so when you add them together, it concatenates them instead of performing arithmetic addition. the type hints in the function definition are not enforced by the python interpreter, they are just for documentation purposes and for static type checkers. so when you call calculate("10", "20"), it does not raise an error, it just returns the concatenated string "1020". to fix this, you need to either change the input to integers or modify the function to handle string inputs appropriately.
+
+
+#Type hints are not enforced at runtime, they are just for documentation and human readability.
+#this is exactly why in production AI systems, developers use libraries like pydantic to actually enforce the types at runtime.
+#fastAPI and Langchain both are built on top of Pydantic.
+
+
+#6
+def outer():
+    message = "I am outer"
+    
+    def inner():
+        print(message)
+    
+    inner()
+
+outer()
+
+#output is: I am outer.
+#why? Here `inner` is just a nested function. It accesses `message` from the enclosing scope. But after `outer()` finishes, everything is gone. `inner` does not survive outside.
+#his concept is called **LEGB Rule** in Python — the order Python follows to look up variable names.
+
+#LEGB rule : how python finds  variables
+
+#when python sees a variable name, it searches in exact order:
+# 1. L -> Local scope : inside current function
+# 2. E -> Enclosing scope : inside any outer function
+# 3. G -> Global scope : top level of the file
+# 4. B -> Built-in scope : built-in names like print, len, etc.
