@@ -81,3 +81,38 @@ functions[2]()
 #1
 #2
 
+
+
+
+#the nonlocal keyword
+# if we want to modify the variable from enclosing scope inside nested function we need nonlocal
+# In closure inner function can read a variable from enclosing scope. But if we try to reassign it, python treats it as new local variable instead:
+def counter():
+    count = 0
+
+    def inc():
+        count = count + 1 # this makes python think that count is local variable inside inc(), but it is not defined inside there yet, so the fix is using nonlocal
+        print(count)
+
+    return inc
+
+#so nonlocal tells python "this variable is from enclosing function, not a new local one"
+
+def counter():
+    count = 0
+
+    def inc():
+        nonlocal count
+        count = count + 1
+        print(count)
+    return inc
+
+cnt = counter()
+cnt()
+cnt()
+cnt()
+
+##key rules:
+#1. nonlocal works only with enclosing functions, for global scope use global instead
+#2. The variable must already exist in the enclosing function. You cant create new variable with nonlocal
+#3. Without nonlocal reading works fine - only reassignment causes problem
