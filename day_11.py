@@ -57,3 +57,72 @@ add(1,2,3) # Error: takes only 2 arguments but here we have passed
 # 2. a function that accepts any number of configuration
 # 3. An AI tool that accepts flexible number of parameters
 ## in these type of situation we use *args and **kwargs in python
+
+
+
+
+###### *args and **kwargs
+
+## *args - allows a function to accept any number of positional arguments
+def add(*args):
+    print(args)
+    print(type(args))
+add(1,2,3,4,5)
+add(2,19)
+
+#args are stored as tuples
+#what does "*" tells python?
+# to collect all the positional arguments and pack them into a tuple
+#using *args practically:
+def add(*args):
+    total = 0
+    for item in args:
+        total += item
+    return total
+print(add(1,2))
+print(add(4,5,1,1))
+print(add(3,3,3))
+
+
+##*args with regular paramters
+def intro(name, age, *hobbies):
+    print(f"Name: {name}")
+    print(f"Age: {age}")
+    print(f"Hobbies: {hobbies}")
+intro("Ahmed", 25, "coding", "reading", "AI")
+
+
+##Rule:
+#regular paramter should always come first then *args then **kwargs
+
+
+
+### **kwargs -> allows function to accept any number of keyword arguments
+#here ** tells python to collect all the keyword arguments and pack them into dictionary
+#So no matter how many key=value pairs you pass, they all get collected into one dictionary called kwargs.
+
+def show_info(**kwargs):
+    print(kwargs)
+    print(type(kwargs))
+
+
+show_info(name="Ahmed", role="AI Engineer", experience=2)
+
+
+#Using **kwargs Practically
+def build_profile(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}:  {value}")
+build_profile(name="anjana", role="AI engineer", city="Bengaluru")
+
+
+## using both *args and **kwargs together
+def show_everything(*args, **kwargs):
+    print("Positional arguments:", args)
+    print("Keyword arguments:", kwargs)
+
+
+show_everything(1, 2, 3, name="Ahmed", role="AI Engineer")
+
+## * and ** the unpacking operators
+##why used as unpacking operators? -> * and ** are not just used in function definition they are also used when calling the function
