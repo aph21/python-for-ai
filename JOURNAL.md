@@ -105,3 +105,23 @@
 - **Returning multiple values** — `return name, age, role` packs into a tuple; unpack with `name, age, role = get_info()`
 - **Variable scope** — local variables exist only inside their function; global variables are accessible but modifying them inside a function needs the `global` keyword
 - **Avoid global variables** in professional/AI code — pass values in, return values out
+
+## Day 10 - Closures
+- **Closure** — happens when a nested function references a variable from the enclosing scope, is returned, and remembers that variable even after the outer function finishes
+- The inner function "closes over" the variable and keeps it alive in memory — that's why it's called a closure
+- **The Famous Loop Bug** — all functions created inside a `for` loop share the same loop variable reference; they all print the final value, not their iteration's value
+- **Fix** — capture the current value using a default argument: `def f(x=i):`; defaults are evaluated at function creation time, not call time
+- **`nonlocal` keyword** — needed when you want to reassign (not just read) a variable from the enclosing scope inside a nested function
+- Without `nonlocal`, reassignment makes Python treat it as a new local variable, causing `UnboundLocalError`
+- `nonlocal` only works with enclosing function scope (use `global` for module-level); the variable must already exist in the enclosing function
+
+## Day 11 - *args, **kwargs & String Immutability
+- **String immutability** — `food.replace("z", "s")` returns a new string; it does NOT modify the original. Must reassign: `food = food.replace("z", "s")`
+- **Positional arguments** — matched by order: `greet("Anjana", 24)`
+- **Keyword arguments** — matched by name: `greet(age=30, name="Prabha")`; order doesn't matter
+- **`*args`** — collects any number of positional arguments into a **tuple**; `*` tells Python to pack them
+- **`**kwargs`** — collects any number of keyword arguments into a **dictionary**; `**` tells Python to pack key=value pairs
+- **Parameter order rule** — regular params first, then `*args`, then `**kwargs`
+- **Unpacking with `*` and `**`** — also works when calling functions: `add(*[1,2,3])` unpacks a list; `intro(**info)` unpacks a dict into keyword arguments
+- **`**` in dicts** — `{"model": model, **kwargs}` merges a dict into another dict
+- **AI connection** — `build_request("gpt-4", temperature=0.7, max_tokens=500)` using `**kwargs` is exactly how real AI libraries (OpenAI SDK, LangChain) handle flexible API configurations
