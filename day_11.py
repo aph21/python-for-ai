@@ -126,3 +126,107 @@ show_everything(1, 2, 3, name="Ahmed", role="AI Engineer")
 
 ## * and ** the unpacking operators
 ##why used as unpacking operators? -> * and ** are not just used in function definition they are also used when calling the function
+
+##unpacking list into a function:
+
+def add(a, b, c):
+    return a + b + c
+numbers = [1, 2, 3]
+# add(numbers) # here we get ERROR (TypeError) saying add() missing 2 required positional arguments: 'b' and 'c' -> means we are only passing one list not 3 numbers, so we need to unpack before adding
+add(*numbers) ## unpacks list into: add(1, 2, 3)
+print(add(*numbers))
+
+
+## Unpacking dictionary into function:
+def intro(name, role, city):
+    print(f"{name} is a {role} from {city}")
+
+info = {"name" : "Anjana", "city" : "Bengaluru", "role" : "Agentic AI Developer" }
+
+intro(**info)
+print(intro(**info))
+
+
+##f string -> formatted string literal
+# allows to embed a variable or an expression directly inside a string using {}
+
+
+
+##Interview Questions
+#1.
+def show(*args):
+    print(args)
+    print(type(args))
+
+show(1, "hello", True, 3.14)
+
+# output is: (1, 'hello', True, 3.14)
+# <class 'tuple'>
+# why? -> because *args collects all the positional arguments into a tuple
+#when calling: show(1, "hello", True, 3.14), python packs them as : args = (1, "hello", True, 3.14)
+
+
+
+##2.
+def show(**kwargs):
+    print(kwargs)
+    print(type(kwargs))
+
+show(name="Ahmed", age=25, role="AI Engineer")
+
+#{'name': 'Ahmed', 'age': 25, 'role': 'AI Engineer'}
+#<class 'dict'>
+#why ? - because **kwargs collects all the keyword arguments into dictionary
+
+
+##3.
+def func(a, b, *args, **kwargs):
+    print(a)
+    print(b)
+    print(args)
+    print(kwargs)
+
+func(1, 2, 3, 4, 5, name="Ahmed", role="AI Engineer")
+
+#why?
+#-because in this example we have 4 parameters: a, b, 8args, and **kwargs
+#* python follows this order: first regular arguments( first and 2nd positional arguments, then extra positional arguments 3,4 ,5 into *args and next are leyword argumenst thos are into **kwargs
+# so 1 is passed into a, 2 is passed onto b
+# remaining extra positional arguments passed onto *args and in arga they allow function to accept any number of positional arguments and then pack them into tuple so they are packed into tuple -> (3,4,5)
+# whereas **kwargs allows function to accept any number of keyword arguments and pack them into dictionary, so name="Ahmed", role="AI Engineer" are packed into dict {'name': 'Ahmed', 'role': 'AI Engineer'}
+
+
+##4
+def add(a,b,c):
+    return a + b + c
+numbers = [10, 20, 30]
+
+result = add(*numbers)
+print(result)
+
+#output is: 60, because 
+# *numbers -> is also used for unpacking the list into items
+# if we pass whole list [10, 20, 30] without unpacking then python consider it as one list not 3 arguments, so it will result with TypeError telling that 'b' and 'c' are not passed
+# so we first unpack the items in numbers using add(*numbers) and then print it
+
+
+##5
+def build_request(model:str, **kwargs):
+    request = {"model": model, **kwargs}
+    return request
+result = build_request("gpt-4", temperature = 0.7, max_token = 500, stream = True)
+print(result)
+
+#output is: {'model': 'gpt-4', 'temperature': 0.7, 'max_token': 500, 'stream': True}
+#why?
+# when we call build_request("gpt-4", temperature=0.7, max_tokens=500, stream=True), so mapping happens:
+# model = "gpt-4" and kwargs = {"temperature" :0.7, "max_tokens" :500, "stream" : True }
+# **kwargs collects keyword arguments as a dictionary, and ** can be used to unpack a dictionary into another dictionary.
+
+def func(*args, **kwargs):
+    print(args)
+    print(kwargs)
+data = (1,2,3)
+config = {"model": "gpt-4", "temperature" : 0.5}
+
+func(*data, **config)
