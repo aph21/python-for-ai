@@ -69,4 +69,21 @@ print(square(4))
 print(square(7))
 #16
 #49
-#why 
+#why ?
+#here lambda means keyword, x: means input and x ** 2 is an expression or it tells what it computes.
+#lambda x: x ** 2 is just a compact way of saying "give me a number, I'll return its square." Same logic as a regular function, just shorter.
+
+
+#2.
+numbers = [5, 2, 8, 1, 9, 3]
+
+sorted_numbers = sorted(numbers, key=lambda x: x)
+
+print(sorted_numbers)
+#output is: [1,2,3,5,8,9]
+#Why?
+
+#How sorted() works? -> it is a built in python function. It takes any collection (like a list) and returns a brand new sorted version of it.
+# What does key paramter do? -> it tells sorted() how to decide the order. It expects a function sorted() will call this function on every item in the list and use the return values to sort.
+# In this case, lambda x: x is a function that takes an item x and returns x itself. So sorted() sorts the list in ascending order.
+# If we had written lambda x: -x, it would sort the list in descending order.
