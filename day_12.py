@@ -39,3 +39,34 @@ print(square(5))
 # Multiple arguments:
 multiply = lambda a, b: a * b
 print(multiply(4, 5))   # 20
+
+# With condition (ternary):
+check = lambda x: "positive" if x > 0  else "negative"
+print(check(-11))
+print(check(0))
+print(check(2))
+
+
+
+## Important Limitation
+# Lambda functions can have only one expression
+# they cannot contain: 
+    # Multiple lines of code
+    # Loops
+    # if/else block -> they can only contain ternary
+    # return statement
+    # variable assignments
+
+
+## where Lambda is actually used? -> with Higher order functions
+
+
+########### Interview Exercises
+
+#1.
+square = lambda x: x ** 2
+print(square(4))
+print(square(7))
+#16
+#49
+#why 
