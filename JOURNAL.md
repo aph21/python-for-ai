@@ -125,3 +125,17 @@
 - **Unpacking with `*` and `**`** — also works when calling functions: `add(*[1,2,3])` unpacks a list; `intro(**info)` unpacks a dict into keyword arguments
 - **`**` in dicts** — `{"model": model, **kwargs}` merges a dict into another dict
 - **AI connection** — `build_request("gpt-4", temperature=0.7, max_tokens=500)` using `**kwargs` is exactly how real AI libraries (OpenAI SDK, LangChain) handle flexible API configurations
+
+## Day 12 - Lambda Functions, filter() & sorted() with key - 2026-03-24
+- **Lambda function** — a small, one-line anonymous function with no name; written as `lambda arguments: expression`
+- The expression after `:` is automatically returned — no need to write `return`
+- **Two ways to use a lambda** — assign it to a variable: `square = lambda x: x ** 2`, or use it directly inline: `(lambda x: x ** 2)(5)`
+- **Lambda is just a shorter function** — `lambda x: x ** 2` does the exact same thing as `def square(x): return x ** 2`
+- **Lambda limitations** — can only have one expression; no loops, no multiple lines, no `return`, no variable assignments
+- **`filter()`** — goes through every item in a list and keeps only the items where the lambda returns `True`; think of it as a bouncer — only items that pass the test get through
+- **Why wrap `filter()` with `list()`** — `filter()` returns a lazy filter object, not a list; wrapping it with `list()` forces it to run and collect all results (same reason we use `list(range(5))`)
+- **`sorted()` with `key`** — the `key` parameter takes a function (usually a lambda) that tells Python *what value to sort by*; like putting a sticky note on each item and sorting by the sticky note
+- **`reverse=True`** — after sorting, flips the result so the largest comes first
+- **`[0]` after `sorted()`** — picks just the first (best) item from the sorted list
+- **Real AI use case** — `filter()` to remove models outside budget → `sorted()` by quality → `[0]` to pick the best one; this is a real pattern used in production AI systems to select models dynamically
+
