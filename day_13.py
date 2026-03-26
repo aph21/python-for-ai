@@ -136,7 +136,7 @@ def square(x):
 
 
 def make_negative(x):
-    return -x
+    #return -x
 
 
 numbers = [1, 2, 3, 4, 5]
@@ -264,3 +264,4 @@ for message in final:
     print(message)
 # for message in final: here for is a loop that iterates over every item in final one by one, it assigns each item to the variable message and then executes the code inside the loop
 # print(message) -> it will print the value of message
+
