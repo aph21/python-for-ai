@@ -20,3 +20,19 @@ Step 5 — Build one step at a time:
 First build and test the filter.
 Then add the sort.
 Then add the [0] pick.
+
+
+You are building an AI pipeline.
+You have a list of raw user messages.
+
+Each message needs to go through these steps:
+1. Clean it — strip spaces, lowercase
+2. Validate it — reject messages under 3 words
+3. Format it — add "User said: " prefix
+
+At the end you should have only
+the valid, cleaned, formatted messages.
+
+1) for cleaning -> strip() and lower()
+2) for validating -> len(message.split()) >= 3
+3) for formatting -> "User said: " + message

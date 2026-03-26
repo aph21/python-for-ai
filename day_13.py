@@ -183,3 +183,84 @@ ka_greet = make_greet("ka")
 print(en_greet("Anjana"))  # Hello, Anjana
 print(hi_greet("Anjana"))  # Namaste, Anjana
 print(ka_greet("Anjana"))  # Namaskara, Anjana
+
+
+# strip() -> strip() removes spaces from the START and END of a string It does NOT remove spaces between words
+"""
+"  My name is Anjana  "
+         ↓ strip()
+"My name is Anjana"
+          ↓ lower()
+"my name is anjana"
+"""
+
+# The spaces between words stay. Only leading and trailing spaces are removed.
+
+
+# example to learn the logic
+# Step 1: Define the three pipeline functions
+
+
+def clean(
+    message: str,
+) -> (
+    str
+):  # def -> defines the function, clean -> name of the function, (message: str) -> means function takes only one parameter called message. the :str is a type hint that tells us we can only pass string as an argument to this function. -> str -> means the function will return a string
+    return message.strip().lower()
+
+
+# message.strip() -> it will remove spaces from the start and end of the string
+# message.lower() -> it will convert the string to lowercase
+# return ssends the result back to whover called the function
+
+
+def validate(
+    message: str,
+) -> (
+    bool
+):  # def -> defines the function, validate -> name of the function, (message: str) -> means function takes only one parameter called message. the :str is a type hint that tells us we can only pass string as an argument to this function. -> bool -> means the function will return a boolean value
+    return len(message.split()) >= 3
+
+
+# message.split -> splits the strinto list of words, t splits on whitespace.
+# len() -> counts how many items are in that list (i.e words)
+# >= checks if that count is greater than or equal to 3
+# return -> returns the result of the check (True or False)
+
+
+def add_prefix(
+    message: str,
+) -> (
+    str
+):  # def -> defines the function, add_prefix -> name of the function, (message: str) -> means function takes only one parameter called message. the :str is a type hint that tells us we can only pass string as an argument to this function. -> str -> means the function will return a string
+    return f"User said: {message}"
+
+
+# f"User said: {message}" -> f-string is used to format the string. it is a way to embed expressions inside string literals.
+
+# Step 2: Raw input data
+messages = [
+    "  My name is Anjana  ",
+    "  I want to become Agentic AI developer  ",
+    "  Hi  ",
+    "  I have started learning python  ",
+    "  Ok  ",
+]  # messages -> a variable that holds a list of strings
+
+
+# Step 3: Run the pipeline
+cleaned = list(
+    map(clean, messages)
+)  # map(clean, messages) here map applies clean function to every item in messages one by one, it returns lazy map object so to convert it into list we use list()
+valid = list(
+    filter(validate, cleaned)
+)  # filter(validate, cleaned) here filter applies validate function to every item in cleaned one by one, it returns lazy filter object so to convert it into list we use list()
+final = list(
+    map(add_prefix, valid)
+)  # map(add_prefix, valid) here map applies add_prefix function to every item in valid one by one, it returns lazy map object so to convert it into list we use list()
+
+# Step 4: Print results
+for message in final:
+    print(message)
+# for message in final: here for is a loop that iterates over every item in final one by one, it assigns each item to the variable message and then executes the code inside the loop
+# print(message) -> it will print the value of message
