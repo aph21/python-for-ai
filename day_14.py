@@ -11,9 +11,9 @@ Each task is a dictionary with:
 - "assigned"  : string (agent name)
 
 Build a pipeline that:
-1. Filters only "pending" tasks
-2. Filters only tasks with priority >= 2
-3. Sorts by priority — highest first
+1. Filters only "pending" tasks # keep taks only where status == "pending"
+2. Filters only tasks with priority >= 2 #keeps only tasks where priority >=  2
+3. Sorts by priority — highest first #sorts the tasks based on priority in descending order
 4. Prints each task in this format:
     [HIGH] Task: <title> → Agent: <assigned>
     [MEDIUM] Task: <title> → Agent: <assigned>
@@ -25,7 +25,35 @@ Use the 5-Step Framework before coding.
 Plan on paper first.
 
 """
+def filter_pending(tasks):
+    pending_tasks = []
+    for task in tasks:
+        if task["status"] == "pending":
+            pending_tasks.append(task)
+    return pending_tasks
+#this above pattern for filter_pending(tasks) is known as "accumulator pattern" -> means most common / natural way to think about it.ascii
+#but in python we have a shorter way to write the exact same logic that is called as list comprehension
 
+
+def filter_priority(tasks):
+    priority_tasks = []
+    for task in tasks:
+        if task["priority"] >= 2:
+            priority_tasks.append(task)
+    return priority_tasks
+
+def sort_priority(tasks):
+    sorted_tasks = sorted(tasks, key = lambda x:x["priority"], reverse = True)
+    return sorted_tasks
+
+def format_task(task):
+    priority_map = {
+        1 : "LOW",
+        2 : "MEDIUM",
+        3 : "HIGH"
+    }
+    priority_label = priority_map.get(task["priority"], "UNKNOWN")
+    return f"[{priority_label}] Task: {task['title']} → Agent: {task['assigned']}"
 
 tasks = [
     {
@@ -77,4 +105,12 @@ tasks = [
         "assigned" : "Claude Opus 4.5"
     },
 ]
+
+# Run the pipeline
+step1 = filter_pending(tasks)
+step2 = filter_priority(step1)
+step3 = sort_priority(step2)
+
+for task in step3:
+    print(format_task(task))
 
