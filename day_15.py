@@ -116,3 +116,55 @@ words = ["apple", "banana", "cherry", "date"]
 
 result = sorted(words, key=len)
 print(result)
+
+
+##Interviw Questions
+#1. 
+def apply(func, value):
+    return func(value)
+
+result1 = apply(lambda x: x * 3, 5)
+result2 = apply(lambda x: x ** 2, 4)
+
+print(result1)
+print(result2)
+# what is the output? -> its 15 and 16
+#Why is apply is considered as HOF? -> because it takes another function as an argument. 
+
+#
+# 2.
+def make_multiplier(n: int):
+    def multiply(x: int) -> int:
+        return x * n
+    return multiply
+
+double = make_multiplier(2)
+triple = make_multiplier(3)
+
+print(double(5))
+print(triple(5))
+print(double(triple(4)))
+#1. output is: 10
+15
+24
+#2. make_multiplier() is an HOF because it returns a function object i.e. multiply
+#3. double (also triple) is a variable that holds the functions
+
+#3.
+def run_pipeline(data: list, *functions):
+    result = data
+    for func in functions:
+        result = list(map(func, result))
+    return result
+
+
+numbers = [1, 2, 3, 4, 5]
+
+output = run_pipeline(
+    numbers,
+    lambda x: x * 2,
+    lambda x: x + 10,
+    lambda x: x ** 2
+)
+
+print(output)
