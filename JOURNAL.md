@@ -139,3 +139,63 @@
 - **`[0]` after `sorted()`** — picks just the first (best) item from the sorted list
 - **Real AI use case** — `filter()` to remove models outside budget → `sorted()` by quality → `[0]` to pick the best one; this is a real pattern used in production AI systems to select models dynamically
 
+## Day 15 - Higher-Order Functions (HOF) - 2026-04-14
+
+### Core Idea: Functions Are Values
+- **First-class object** — in Python, a function is not just a set of instructions; it is also a *value*, just like an integer or a string
+- A function can be stored in a variable, passed as an argument, or returned from another function — this is what "first-class" means
+- **KEY RULE** — when passing a function as an argument, write it *without* parentheses: `double` not `double()`; adding `()` would call it immediately instead of passing the reference
+
+### What Makes a Function "Higher-Order"?
+- A function is called a **Higher-Order Function (HOF)** if it does **at least one** of these two things:
+  1. Takes another function as an **input** (argument)
+  2. Returns a function as an **output**
+- When you pass a function to another function, the *receiving* function becomes the HOF
+
+### Pattern 1 — Passing a Function as an Argument
+- `apply(func, value)` is an HOF because it receives `func` as an argument and calls it
+- One HOF, three different behaviors — just by swapping the function passed in:
+  - `apply(double, 5)` → `10`
+  - `apply(square, 5)` → `25`
+  - `apply(make_negative, 5)` → `-5`
+- This is the power of HOFs — **flexible, reusable code** without repeating yourself
+
+### Pattern 2 — Returning a Function (Function Factory)
+- `make_multiplier(n)` builds and returns a new inner function `multiplier`
+- `double = make_multiplier(2)` — `double` is now a variable holding a function object
+- `make_multiplier` is an HOF because it *returns* a function as its output
+- This is also a **closure** — the inner `multiplier` remembers the value of `n` from the outer scope even after `make_multiplier` has finished running
+
+### Python's 3 Built-In HOFs
+| HOF | Syntax | What it does |
+|---|---|---|
+| `map()` | `map(func, iterable)` | Applies `func` to **every** item; returns a lazy map object → wrap with `list()` |
+| `filter()` | `filter(func, iterable)` | Keeps only items where `func` returns `True`; returns a lazy filter object → wrap with `list()` |
+| `sorted()` | `sorted(iterable, key=func)` | Sorts items using `func` to determine the comparison value |
+
+- `map` and `filter` are **lazy** — they return iterator objects; use `list()` to materialise results
+- `sorted()` with `key=len` sorts words by their length, not alphabetically
+
+### Interview Q&A Decoded
+1. **Why is `apply` an HOF?** — because it takes another function (`func`) as an argument
+2. **Why is `make_multiplier` an HOF?** — because it returns a function object (`multiply`) as its output
+3. **What does `double(triple(4))` evaluate to?** — `triple(4)` → `12`, then `double(12)` → `24`
+4. **What is `double` after `double = make_multiplier(2)`?** — a variable that holds a function (a first-class object)
+
+### The `run_pipeline` Pattern — HOFs Composing HOFs
+- `run_pipeline(data, *functions)` collects any number of functions into a tuple using `*args`
+- It iterates over each function and applies it to every item via `map()` — which is itself a built-in HOF
+- `run_pipeline` is an HOF because it takes functions as arguments
+- Each stage transforms the output of the previous one — this is a **functional pipeline**
+- Example with `[1, 2, 3, 4, 5]`:
+  - `lambda x: x * 2` → `[2, 4, 6, 8, 10]`
+  - `lambda x: x + 10` → `[12, 14, 16, 18, 20]`
+  - `lambda x: x ** 2` → `[144, 196, 256, 324, 400]`
+- The lambdas passed in are **functions as first-class objects**; `run_pipeline` is **HOFs composing HOFs**
+
+### Why HOFs Matter
+- **Flexible** — one HOF can produce many different behaviors just by changing the function you pass in
+- **Reusable** — write the "scaffolding" once; swap the logic freely
+- **Modular** — each small function does one thing; compose them to build complex pipelines
+- HOFs are the **foundation of functional programming** and are used everywhere in AI/ML pipelines (e.g., data transformation chains, preprocessing steps, LLM prompt pipelines)
+
