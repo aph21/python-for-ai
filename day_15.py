@@ -151,20 +151,24 @@ print(double(triple(4)))
 #3. double (also triple) is a variable that holds the functions
 
 #3.
-def run_pipeline(data: list, *functions):
+def run_pipeline(data: list, *functions): #here function collects any number of functions using *arg
     result = data
-    for func in functions:
-        result = list(map(func, result))
+    for func in functions: #for loop iterates over the each function passed in
+        result = list(map(func, result)) #map applies the function to every item and returns a map object (iterator)
     return result
-
+#here functions  like lambda x: x * 2, lambda x: x + 10, lambda x: x ** 2 are passed as arguments which is also known as function as first class objects
+# run_pipeline is HOF because it takes another function as an argument.
+# HOF internally using map() function -> map() is also built in HOF
+# Each function transforms the output of the previous
 
 numbers = [1, 2, 3, 4, 5]
 
 output = run_pipeline(
     numbers,
-    lambda x: x * 2,
-    lambda x: x + 10,
-    lambda x: x ** 2
+    lambda x: x * 2, #[2, 4, 6, 8, 10]
+    lambda x: x + 10, #[12, 14, 16, 18, 20]
+    lambda x: x ** 2 #[144, 196, 256, 324, 400]
 )
 
 print(output)
+#output is: [144, 196, 256, 324, 400]
