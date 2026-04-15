@@ -88,3 +88,11 @@ scores = {"Alice": 85, "Bob": 45, "Cherry": 92, "Don": 32}
 
 passed = {name: score for name, score in scores.items() if score >= 60}
 print(passed)
+
+
+
+# on list comprehension we iterate with for item in list
+# on dict comprehension we iterate with for key, value in dict.items()
+
+
+#sum() -> it is a built in python function. it takes any iterable and adds everything up.
