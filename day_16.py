@@ -58,8 +58,8 @@ labels = ["Even" if n % 2 == 0 else "Odd" for n in num]
 print(labels)
 
 ### important ###
-# if after teh for -> filter
-# if before teh for -> transform
+# if after the for -> filter
+# if before the for -> transform
 
 
 ##Nested List Comprehension
@@ -83,3 +83,8 @@ print(word_lengths)
 # output: {'agent': 5, 'token': 5, 'model': 5}
 
 
+#with filter:
+scores = {"Alice": 85, "Bob": 45, "Cherry": 92, "Don": 32}
+
+passed = {name: score for name, score in scores.items() if score >= 60}
+print(passed)
