@@ -87,12 +87,24 @@ print(successful_latencies)
 # output: [120, 95, 210, 180]
 
 #Task 2: Using a list comprehension, build a list of strings in this format: "search → 120ms" — for every log entry regardless of status. Name it log_labels.
-log_labels : list[str] = [f"{log['tool']} -> {log['latency_ms']}ms" for log in logs] # log is the variable that represents each individual elemnt in the list 'logs'
-# f"{log['tool']} -> {log['latency_ms']}ms" -> it is an expression that we want to extract from the list 'logs'
+log_labels : list[str] = [f"{log['tool']} → {log['latency_ms']}ms" for log in logs] # log is the variable that represents each individual elemnt in the list 'logs'
+# f"{log['tool']} → {log['latency_ms']}ms" -> it is an expression that we want to extract from the list 'logs'
 print(log_labels)
-# output: ['search -> 120ms', 'summarize -> 340ms', 'search -> 95ms', 'classify -> 210ms', 'summarize -> 180ms', 'search -> 500ms']
+# output: ['search → 120ms', 'summarize → 340ms', 'search → 95ms', 'classify → 210ms', 'summarize → 180ms', 'search → 500ms']
 
 #Task 3: Using a loop with .get(), build a dict that maps each tool name to its total latency across all calls. Name it tool_latency_total.
+tool_latency_total = {}
+for log in logs:
+    tool_latency_total[log["tool"]] = tool_latency_total.get(log["tool"], 0) + log["latency_ms"]
+print(tool_latency_total)
+# output: {'search': 715, 'summarize': 520, 'classify': 210}
+# How? -> 
+# tool_latency_total.get(log["tool"], 0) -> it is used to get the value of the key log["tool"] from the dictionary tool_latency_total
+# if the key is not found then it will return 0
+# log["latency_ms"] -> it is the value that we want to add to the key log["tool"]
+# tool_latency_total[log["tool"]] = ... -> it is used to update the value of the key log["tool"] in the dictionary tool_latency_total
+#===========================================================
+
 
 #Rules:
 #Type hints on every variable
