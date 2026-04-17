@@ -111,3 +111,81 @@ print(tool_latency_total)
 #f-strings where strings are built
 #One comment per line explaining what it does
 #print() each result
+
+
+#============================================================
+
+#interview question 1:
+data = [1, 2, 3, 4, 5]
+result = [x * 2 if x % 2 == 0 else x for x in data]
+#         --─────────────────────────  ───────────
+#  TRANSFORM (ternary)        LOOP
+print(result)
+# output: [1, 4, 3, 8, 5]
+#How?
+# x * 2 if x % 2 == 0 else x -> it is an expression that we want to extract from the list named 'data' if following condition is met
+# if x % 2 == 0  -> it is a filter that we want to apply to the list 'data'
+# for x in data -> it is a loop that iterates over the list 'data'
+# x * 2 if x % 2 == 0 else x → ternary TRANSFORM:
+#   if x is even → double it
+#   if x is odd  → keep it unchanged
+# ALL items are included — this is not a filter
+
+
+#===========================================================
+#interview question 2:
+pairs = [(1, 'a'), (2, 'b'), (3, 'c')]
+result = {num: letter for num, letter in pairs if num > 1}
+print(result)
+# output: {2: 'b', 3: 'c'}
+# How?
+# {num: letter for num, letter in pairs if num > 1} -> it is an expression that we want to extract from the list named 'pairs' if following condition is met
+# if num > 1 -> it is a filter that we want to apply to the list 'pairs'
+# for num, letter in pairs -> it is a loop that iterates over the list 'pairs'
+# num: letter -> it is a key-value pair that we want to extract from the list 'pairs'
+# {key: value for ... if ...} → DICTIONARY COMPREHENSION:
+#   key = num
+#   value = letter
+#   filter = num > 1
+#   loop = for num, letter in pairs
+# Only items where num > 1 are included
+
+#============================================================
+#interview question 3
+agents = [
+    {"name": "ResearchAgent", "active": True,  "calls": 42},
+    {"name": "SummaryAgent",  "active": False, "calls": 18},
+    {"name": "RouterAgent",   "active": True,  "calls": 95},
+    {"name": "FilterAgent",   "active": False, "calls": 7},
+]
+#Write a single list comprehension that produces: ['ResearchAgent: 42 calls', 'RouterAgent: 95 calls']
+# rules:
+#only active agent
+# format : f "{name}: {calls} calls"
+#one line
+#type hint required
+#print() each result
+
+result = [f"{agent['name']}: {agent['calls']} calls" for agent in agents if agent["active"]]
+print(result)
+# output: ['ResearchAgent: 42 calls', 'RouterAgent: 95 calls']
+# How?
+# [f"{agent['name']}: {agent['calls']} calls" for agent in agents if agent["active"]] -> it is an expression that we want to extract from the list named 'agents' if following condition is met
+# if agent["active"] -> it is a filter that we want to apply to the list 'agents'
+# for agent in agents -> it is a loop that iterates over the list 'agents'
+# f"..." -> formatted string expression — the output for each active agent
+
+
+#============================================================
+#Interview 4:
+#There are two loops and a filter here. Trace through it carefully. What does each loop do? What does the filter do? What is the final output?
+matrix = [[1, 2], [3, 4], [5, 6]]
+result = [n for row in matrix for n in row if n % 2 != 0]
+print(result)
+# output: [1, 3, 5]
+# How?
+# [n for row in matrix for n in row if n % 2 != 0] -> it is an expression that we want to extract from the list named 'matrix' if following condition is met
+# if n % 2 != 0 -> it is a filter that we want to apply to the list 'matrix'
+# for row in matrix -> it is a loop that iterates over the list 'matrix'
+# for n in row -> it is a loop that iterates over the list 'row'
+# n -> it is the value that we want to extract from the list 'row'

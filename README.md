@@ -10,7 +10,7 @@ Each file covers one day of learning, with real code, comments, and exercises. N
 
 ```
 python-for-ai/
-├── hello.py        # Day 1  — print, variables, data types, indentation
+├── day_1.py        # Day 1  — print, variables, data types, indentation
 ├── day_2.py        # Day 2  — mutation vs rebinding, immutability, falsy values, None, is vs ==
 ├── day_3.py        # Day 3  — lists vs tuples, shallow immutability, interning
 ├── day_4.py        # Day 4  — hashing, hashable types, why mutables can't be dict keys
@@ -21,7 +21,13 @@ python-for-ai/
 ├── day_9.py        # Day 9  — functions, return vs print, scope, type hints, LEGB rule
 ├── day_10.py       # Day 10 — closures, the famous loop bug, nonlocal keyword
 ├── day_11.py       # Day 11 — *args, **kwargs, unpacking with * and **, string immutability
-├── day_12.py       # Day 12 — lambda functions
+├── day_12.py       # Day 12 — lambda functions, filter(), sorted() with key
+├── day_13.py       # Day 13 — first-class functions, HOF practice, message pipelines
+├── day_14.py       # Day 14 — logic building, AI agent task manager pipeline
+├── day_15.py       # Day 15 — higher-order functions, map, filter, sorted, run_pipeline
+├── Day_16/         # Day 16 — list & dictionary comprehensions
+│   ├── day_16.py   #          comprehension syntax, filter, transform, nested, dict comp
+│   └── practice.py #          Agentic AI pipeline practice, interview questions
 ├── JOURNAL.md      # Daily notes on what was learned each day
 └── README.md       # This file
 ```
@@ -77,6 +83,21 @@ python-for-ai/
 | 11 | AI Connection | `build_request("gpt-4", temperature=0.7)` — this is exactly how OpenAI/LangChain work | `day_11.py` |
 | 12 | Lambda Functions | Small, one-line anonymous functions: `lambda x: x ** 2` | `day_12.py` |
 | 12 | Lambda Limitations | Can only have one expression; no loops, no multiple lines, no `return` | `day_12.py` |
+| 13 | First-Class Functions | Assign to variables, store in lists, pass as args, return from functions | `day_13.py` |
+| 13 | `apply_operation` HOF | One HOF, many behaviors by swapping the function passed in | `day_13.py` |
+| 13 | Function Factory | `make_greet(language)` returns a customized greeting function (closure) | `day_13.py` |
+| 13 | Message Pipeline | `clean` → `validate` → `add_prefix` using `map()` and `filter()` | `day_13.py` |
+| 14 | Logic Building | AI agent task manager — filter, sort, and format a list of task dicts | `day_14.py` |
+| 14 | Accumulator Pattern | Loop → append matching items → return new list; precursor to comprehensions | `day_14.py` |
+| 14 | `dict.get()` Safe Lookup | `priority_map.get(key, "UNKNOWN")` — returns default instead of `KeyError` | `day_14.py` |
+| 15 | Higher-Order Functions | Functions that take or return other functions; foundation of FP | `day_15.py` |
+| 15 | Built-in HOFs | `map()`, `filter()`, `sorted()` — all accept functions as arguments | `day_15.py` |
+| 15 | `run_pipeline` | HOFs composing HOFs — each stage transforms the output of the previous one | `day_15.py` |
+| 16 | List Comprehension | `[expr for item in iterable]` — single-line list building, no `.append()` | `Day_16/day_16.py` |
+| 16 | Comprehension Filter | `if` after `for` = filter; `if` before `for` = transform (ternary) | `Day_16/day_16.py` |
+| 16 | Nested Comprehension | `[n for row in matrix for n in row]` — flatten nested structures | `Day_16/day_16.py` |
+| 16 | Dict Comprehension | `{key: val for item in iterable}` — same idea, builds a dictionary | `Day_16/day_16.py` |
+| 16 | Grouping with `.get()` | Running totals per group — can't be replaced by a simple comprehension | `Day_16/practice.py` |
 
 ---
 

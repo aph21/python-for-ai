@@ -199,3 +199,99 @@
 - **Modular** — each small function does one thing; compose them to build complex pipelines
 - HOFs are the **foundation of functional programming** and are used everywhere in AI/ML pipelines (e.g., data transformation chains, preprocessing steps, LLM prompt pipelines)
 
+## Day 13 - First-Class Functions & Pipeline Practice
+
+### Functions as First-Class Objects — All 4 Powers
+- **Assigned to a variable** — `say_hello = greet`; `say_hello` now points to the same function object as `greet`
+- **Stored in a list** — `operations = [add, subtract, multiply]`; loop over the list and call each one: `operation(10, 5)`
+- **Passed as an argument** — `apply(func, value)` receives any function and calls it; this makes `apply` an HOF
+- **Returned from another function** — `make_multiplier(n)` returns an inner `multiply` function that remembers `n` (closure)
+
+### Built-In HOFs Revisited
+- `sorted()`, `filter()`, `map()` are all higher-order functions built into Python
+- `sorted(students, key=lambda s: s["score"])` — takes a function as the `key` argument
+- `filter(lambda x: x > 0, numbers)` — takes a function as the first argument
+- `map(lambda x: x * 2, numbers)` — takes a function as the first argument
+
+### `apply_operation` Pattern
+- `apply_operation(data, operation)` — an HOF that applies any function to every item in a list using the accumulator pattern
+- Same HOF, four different behaviors by swapping the function: `double`, `square`, `make_negative`, or an inline `lambda`
+
+### Function Factory — `make_greet(language)`
+- Returns a `greet(name)` function customized for a specific language
+- `en_greet = make_greet("en")` → `"Hello, Anjana"`; `hi_greet = make_greet("hi")` → `"Namaste, Anjana"`
+- This is both an HOF (returns a function) and a closure (inner function remembers `language`)
+
+### Message Processing Pipeline
+- **`strip()`** — removes whitespace from the start and end of a string; does NOT remove spaces between words
+- **`lower()`** — converts the entire string to lowercase
+- Built a 3-stage pipeline: `clean` (strip + lower) → `validate` (keep messages with 3+ words) → `add_prefix` (prepend `"User said: "`)
+- Used `map()` for transformation stages and `filter()` for the validation stage
+- `map()` and `filter()` return lazy objects — must wrap with `list()` to materialise results
+
+## Day 14 - Logic Building — AI Agent Task Manager Pipeline
+
+### The Problem
+- Build a pipeline to process a list of AI agent tasks (each task is a dict with `title`, `priority`, `status`, `assigned`)
+- Pipeline: filter pending → filter priority ≥ 2 → sort by priority (highest first) → format and print
+
+### Accumulator Pattern
+- `filter_pending(tasks)` — loops through tasks, appends matching ones to a new list, returns the list
+- This is the most natural way to filter; comprehensions are the shorter alternative (introduced later)
+
+### `sorted()` with Lambda
+- `sorted(tasks, key=lambda x: x["priority"], reverse=True)` — sorts dicts by a specific key in descending order
+
+### `dict.get()` for Safe Lookup
+- `priority_map.get(task["priority"], "UNKNOWN")` — maps numeric priority to a label; returns `"UNKNOWN"` if the key doesn't exist
+- Safer than `priority_map[key]` which would raise `KeyError` on missing keys
+
+### Pipeline Execution
+- Each step is a separate function; output of one feeds into the next: `step1 → step2 → step3 → format`
+- This is the same functional pipeline pattern from Day 13/15, but applied to a real-world-style problem
+
+## Day 16 - List & Dictionary Comprehensions - 2026-04-17
+
+### The Problem Comprehensions Solve
+- The old way (accumulator pattern) takes 3–4 lines: create empty list → loop → append → return
+- Comprehensions express the same logic in a **single line** with no sacrifice in clarity
+
+### List Comprehension — Anatomy
+- **Syntax**: `result = [expression for item in iterable]`
+- `expression` — what to produce for each item
+- `for item` — the loop variable
+- `iterable` — the sequence you're looping over
+- Example: `squares = [n ** 2 for n in numbers]` — no `.append()`, no mutation of an external list
+
+### List Comprehension with Filter
+- **Syntax**: `result = [expression for item in iterable if condition]`
+- `if` **after** `for` → **filter** (exclude items that don't match)
+- Example: `evens = [n for n in numbers if n % 2 == 0]`
+
+### List Comprehension with if-else (Transformation)
+- **Syntax**: `result = [value_if_true if condition else value_if_false for item in iterable]`
+- `if` **before** `for` → **transform** (every item is included, but the output changes based on condition)
+- Example: `labels = ["Even" if n % 2 == 0 else "Odd" for n in num]`
+- **KEY RULE**: `if` after `for` = filter; `if` before `for` = transform
+
+### Nested List Comprehension
+- Flattens nested structures: `flat = [num for row in matrix for num in row]`
+- The outer `for` runs first, then the inner `for` — same order as nested `for` loops
+- Can add a filter at the end: `[n for row in matrix for n in row if n % 2 != 0]` → keeps only odd numbers
+
+### Dictionary Comprehension
+- **Syntax**: `result = {key_exp: value_exp for item in iterable}`
+- Example: `word_lengths = {word: len(word) for word in words}`
+- With filter: `passed = {name: score for name, score in scores.items() if score >= 60}`
+- On list comprehension we iterate with `for item in list`; on dict comprehension we iterate with `for key, value in dict.items()`
+
+### `dict.get()` for Running Totals (Grouping Pattern)
+- `result[m["role"]] = result.get(m["role"], 0) + m["tokens"]` — accumulates totals per group
+- `.get(key, 0)` returns `0` if the key doesn't exist yet, preventing `KeyError`
+- This pattern can't be replaced by a simple dict comprehension because it requires a running total across iterations
+
+### Practice — Agentic AI Pipeline
+- **List comprehension + filter**: extract `latency_ms` values where `status == "success"`
+- **List comprehension + f-string**: build formatted labels like `"search → 120ms"` for every log entry
+- **Accumulator with `.get()`**: build `tool_latency_total` mapping each tool name to its total latency
+
